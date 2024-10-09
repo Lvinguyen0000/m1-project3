@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loop a lot 1</title>
+    <style>
+        input{
+            width: 60rem;
+        }
+    </style>
+</head>
+<body>
+    <input id="b1out" readonly><button id="b1btn">Run</button><br>
+
+    <button id="b2btn">Run prompt</button><br>
+
+    <input id="b3out" readonly><button id="b3btn">Run</button><br>
+
+    <input id="b4out" readonly><button id="b4btn">Run</button><br>
+
+    <input id="b5out" readonly><button id="b5btn">Run</button><br>
+
+    <input id="b6out" readonly><button id="b6btn">Run</button><br>
+
+    <input id="b7out" readonly><button id="b7btn">Run</button><br>
+
+    <button id="b8btn">Chơi</button><br>
+
+    <script>
+        document.getElementById("b1btn").onclick = function(){
+            let display = document.getElementById("b1out");
+            for(let i=1; i<=100; i++){
+                if(i==99){
+                    display.value = "Done"
+                }
+                console.log(i);
+            }
+        }
+
+        document.getElementById("b2btn").onclick = function(){
+            let temp = parseInt(prompt("Nhập nhiệt độ"))
+            let check = false;
+            if (temp < 100 || temp > 0) check = true;
+            while (!check){
+                if(temp > 100){
+                    temp = parseInt(prompt("Giảm nhiệt độ"))
+                    if (temp < 100 || temp > 0) check = true;
+                }
+                else if(temp < 0){
+                    temp = parseInt(prompt("Tăng nhiệt độ"))
+                    if (temp < 100 || temp > 0) check = true;
+                }
+            }
+        }
+
+        function fibonacci(n) {
+            return n < 1 ? 0
+                    : n <= 2 ? 1
+                    : fibonacci(n - 1) + fibonacci(n - 2)
+        }
+
+        document.getElementById("b3btn").onclick = function(){
+            for (let i = 1; i < 20; i++){
+                let temp = fibonacci(i);
+                document.getElementById("b3out").value += temp + " ";
+            }
+        }
+
+        document.getElementById("b4btn").onclick = function(){
+            let count = 1;
+            while(true){
+                if(!(fibonacci(count)%5)){
+                    document.getElementById("b4out").value = "Số thứ " + count + " = " + fibonacci(count);
+                    break;
+                }
+                count++;
+            }
+        }
+
+        document.getElementById("b5btn").onclick = function(){
+            let sum = 0
+            for (let i = 1; i < 20; i++){
+                sum += fibonacci(i);
+            }
+            document.getElementById("b5out").value = sum;
+        }
+
+        document.getElementById("b6btn").onclick = function(){
+            let sum = count = 0;
+            let i = 1;
+            while(true){
+                if(!(i % 7)){
+                    sum+=i;
+                    count++;
+                    if(count==30) break;
+                }
+                i++
+            }
+            document.getElementById("b6out").value = sum;
+        }
+
+        document.getElementById("b7btn").onclick = function(){
+            let display = document.getElementById("b7out");
+            for(let i=1;i<=100;i++){
+                if(!(i%3)){
+                    if(!(i%5)) display.value += "FizzBuzz ";
+                    else display.value += "Fizz ";
+                }
+                else if(!(i%5)) display.value += "Buzz ";
+                else display.value += i + " ";
+            }
+        }
+
+        document.getElementById("b8btn").onclick = function(){
+            let number = parseInt(prompt("Nhập vào khoảng số để đoán (0 -> ?)"))
+            let rand = Math.floor(Math.random() * number);
+            console.log(rand);
+            let count = 0;
+            while (count < 3){
+                let predict = parseInt(prompt("Nhập vào một số"))
+                if (predict == rand){
+                    alert("Chúc mùng");
+                    break
+                }
+                else if (predict < rand){
+                    alert("Cần đoán số lớn hơn");
+                }
+                else alert("Cần đoán số nhỏ hơn");
+                count++;
+            }
+            if(count==3) alert("Thua");
+        }
+    </script>
+</body>
+</html>
