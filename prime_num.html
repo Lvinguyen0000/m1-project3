@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prime number</title>
+</head>
+<body>
+    <script>
+        //https://stackoverflow.com/questions/40200089/check-number-prime-in-javascript
+        const isPrime = num => {
+            for(let i = 2, s = Math.sqrt(num); i <= s; i++) {
+                if(num % i === 0) return false;
+            }
+            return num > 1;
+        }
+
+        let numbers = parseInt(prompt("Number of prime numbers to display"));
+        let temp = 2;
+        let count = 0;
+        while(count < numbers){
+            if(isPrime(temp)) {
+                console.log(temp);
+                count++;
+            }
+            temp++;
+        }
+    </script>
+</body>
+</html>
