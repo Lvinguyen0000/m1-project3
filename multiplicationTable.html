@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiplication table</title>
+    <style>
+        #main .cell{
+            border: 3px solid black; text-align: center;
+        }
+        #main table{
+            border-collapse: collapse; width: 40rem; height: 20rem;
+        }
+    </style>
+</head>
+<body>
+    <div id="main"></div>
+
+    <script>
+        let ele = document.getElementById("main");
+        m_table(ele, 9);
+
+        function m_table(parent, limit){
+            let table = document.createElement("table")
+            for (let i = 2; i <= limit; i++){
+                let row = document.createElement("tr");
+                for (let j = 2; j <= limit; j++){
+                    let cell = document.createElement("td");
+                    cell.classList.add("cell");
+                    let res = i*j;
+                    cell.innerHTML = j + "x" + i + "=" + res;
+                    row.appendChild(cell);
+                }
+                table.appendChild(row)
+            }
+            parent.appendChild(table);
+        }
+    </script>
+</body>
+</html>
