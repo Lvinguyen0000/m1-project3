@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The caro game</title>
+    <style>
+        .cell{
+            width: 5rem; height: 5rem; border: 3px solid black; font-size: 4.5rem; text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="table"></div>
+    <p id="ann"></p>
+
+    <script>
+        function create_caro(size){
+            let table = document.createElement("table");
+            for(let i=0; i<size; i++){
+                let row = document.createElement("tr");
+                for(let j=0;j<size;j++){
+                    let cell = document.createElement("td");
+                    cell.classList.add("cell");
+                    cell.id = i.toString() + j.toString();
+                    cell.textContent = ".";
+                    row.appendChild(cell);
+                }
+                table.appendChild(row);
+            }
+            return table;
+        }
+
+        function isWon(side){
+            let sqr1 = document.getElementById("00").textContent;
+            let sqr2 = document.getElementById("01").textContent;
+            let sqr3 = document.getElementById("02").textContent;
+            let sqr4 = document.getElementById("10").textContent;
+            let sqr5 = document.getElementById("11").textContent;
+            let sqr6 = document.getElementById("12").textContent;
+            let sqr7 = document.getElementById("20").textContent;
+            let sqr8 = document.getElementById("21").textContent;
+            let sqr9 = document.getElementById("22").textContent;
+
+            console.log (sqr2 + " " + sqr5 + " " + sqr8)
+
+            if (((sqr1 == side) && (sqr1 == sqr2) && (sqr1 == sqr3)) ||
+            ((sqr1 == side) && (sqr1 == sqr4) && (sqr1 == sqr7)) ||
+            ((sqr1 == side) && (sqr1 == sqr5) && (sqr1 == sqr9)) ||
+            ((sqr2 == side) && (sqr2 == sqr5) && (sqr2 == sqr8)) ||
+            ((sqr3 == side) && (sqr3 == sqr6) && (sqr3 == sqr9)) ||
+            ((sqr3 == side) && (sqr3 == sqr5) && (sqr3 == sqr7)) ||
+            ((sqr4 == side) && (sqr4 == sqr5) && (sqr4 == sqr6)) ||
+            ((sqr7 == side) && (sqr7 == sqr8) && (sqr7 == sqr9)))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        document.getElementById("table").appendChild(create_caro(3));
+        let turn = true;
+        let cells = document.getElementsByClassName("cell");
+        let ann = document.getElementById("ann");
+        for (let cell of cells){
+            cell.onclick = function(){
+                if (turn) {
+                    cell.textContent = "o";
+                    if(isWon("o")) ann.textContent = "o won";
+                    else ann.textContent = ""
+                    turn = !turn;
+                }
+                else {
+                    cell.textContent = "x";
+                    if(isWon("x")) ann.textContent = "x won";
+                    else ann.textContent = ""
+                    turn = !turn;
+                }
+            }
+        }
+
+    </script>
+</body>
+</html>
