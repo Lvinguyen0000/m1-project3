@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caro simple</title>
+    <style>
+        .none{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <input id="size" placeholder="Enter caro board's size">
+    <button id="gen">Generate board</button><br>
+    <div id="table"></div>
+    <input class="none" id="row" placeholder="Enter row">
+    <input class="none" id="col" placeholder="Enter column">
+    <input class="none" id="value" placeholder="Enter new value"><br>
+    <button class="none" id="change">Change value</button>
+
+    <script>
+        function create_caro(size){
+            let table = document.createElement("table");
+            for(let i=0; i<size; i++){
+                let row = document.createElement("tr");
+                for(let j=0;j<size;j++){
+                    let cell = document.createElement("td");
+                    cell.id = i.toString() + j.toString();
+                    cell.textContent = 0;
+                    row.appendChild(cell);
+                }
+                table.appendChild(row);
+            }
+            return table;
+        }
+
+        document.getElementById("gen").onclick = function(){
+            document.getElementById("table").appendChild(create_caro(parseInt(document.getElementById("size").value)));
+            document.getElementById("row").removeAttribute("class");
+            document.getElementById("col").removeAttribute("class");
+            document.getElementById("value").removeAttribute("class");
+            document.getElementById("change").removeAttribute("class");
+        }
+
+        document.getElementById("change").onclick = function(){
+            document.getElementById(document.getElementById("row").value + document.getElementById("col").value).textContent = document.getElementById("value").value;
+        }
+    </script>
+     
+</body>
+</html>
