@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Using array built-in function</title>
+</head>
+<body>
+    <button id="b1btn">Run Bai1</button><br>
+    <p id="b1out"></p>
+    <input id="b2in" placeholder="Bai2"><button id="b2btn">Run</button><br>
+    <p id="b2out"></p>
+    <input id="b3in" placeholder="Bai3"><button id="b3btn">Run</button><br>
+    <p id="b3out"></p>
+
+    <script>
+        document.getElementById("b1btn").onclick = function(){
+           let myColor = ["Red", "Green", "White", "Black"];
+           for (let i of myColor){
+            document.getElementById("b1out").textContent += i + ";";
+           } 
+        }
+
+        function isEven(num) {return !(num%2);}
+        document.getElementById("b2btn").onclick = function(){
+            let num = document.getElementById("b2in").value;
+            let i = 0;
+            while(true){
+                if(i == num.length) break;
+                if(isEven(num[i]) && isEven(num[i+1])){
+                    num = num.slice(0, i+1) + "-" + num.slice(i+1, num.length);
+                    i+=2
+                }
+                else i++;
+            }
+            document.getElementById("b2out").textContent = num;
+        }
+        document.getElementById("b3btn").onclick = function(){
+            let string = document.getElementById("b3in").value;
+            let temp = ""
+            for (let i of string){
+                if(i === i.toUpperCase()) {
+                    temp += i.toLowerCase();
+                }
+                else if (i === i.toLowerCase()) {
+                    temp += i.toUpperCase();
+                }
+                else temp+=i;
+            }
+            document.getElementById("b3out").textContent = temp;   
+        }
+
+
+    </script>
+</body>
+</html>
