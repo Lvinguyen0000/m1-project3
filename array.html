@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Array op</title>
+</head>
+<body>
+    <h1>Sample Screen: </h1>
+    <input id="input" placeholder="Enter an element">
+    <button id="add">Add</button>
+    <button id="display">Display</button><br>
+    <textarea id="area" rows="10" cols="20" style="resize: none;"></textarea>
+
+
+    <script>
+        let array = [];
+        let input = document.getElementById('input');
+        let area = document.getElementById("area");
+
+        document.getElementById("add").onclick = function(){
+            array.push(input.value);
+            input.value = "";
+        }
+
+        document.getElementById("display").onclick = function(){
+            area.textContent = ""
+            for(let i=0; i<array.length; i++){
+                area.textContent += "Element " + i + " = " + array[i] + "\n";
+            }
+        }
+    </script>
+</body>
+</html>
