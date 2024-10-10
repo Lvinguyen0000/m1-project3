@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library</title>
+</head>
+<body>
+    <input id="input" placeholder="Enter a fruit name to search (Nhập tên trái cây)">
+    <button id="btn">Search</button><br>
+    <p id="out"></p>
+    
+    <script>
+        const fruitsEnglish = [
+            "apple", "banana", "orange", "grape", "strawberry",
+            "kiwi", "mango", "pineapple", "watermelon", "pear",
+            "cherry", "plum", "peach", "lemon", "lime",
+            "avocado", "papaya", "fig", "raspberry", "blueberry"
+        ];
+        const fruitsVietnamese = [
+            "táo", "chuối", "cam", "nho", "dâu tây",
+            "kiwi", "xoài", "dứa", "dưa hấu", "lê",
+            "cherry", "mận", "đào", "chanh", "xả",
+            "bơ", "đu đủ", "sung", "mâm xôi", "blueberry"
+        ];
+        document.getElementById("btn").onclick = function(){
+            let index = fruitsEnglish.indexOf(document.getElementById("input").value)
+            let output = document.getElementById("out");
+            if (index != -1){
+                output.textContent = "English: " + fruitsEnglish[index] + " ,Tiếng Việt: " + fruitsVietnamese[index];
+            }
+            else output.textContent = "Not found";
+        }
+    </script>
+</body>
+</html>
