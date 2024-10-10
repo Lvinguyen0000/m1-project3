@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search in array</title>
+</head>
+<body>
+    <script>
+        let value = prompt("Enter a number: ")
+        let num_arr = [-3, -2, -1, 0, 1, 2, 3];
+        let found = false;
+        for (let i=0; i<num_arr.length; i++){
+            if(value==num_arr[i]){
+                alert(value + " found at position " + i + " in array");
+                found = !found;
+                break;
+            }
+        }
+        if(!found) alert("Number not in array");
+    </script>
+</body>
+</html>
