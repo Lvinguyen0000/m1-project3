@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fake textarea</title>
+</head>
+<body>
+    <h2>Type anything</h2>
+    <textarea id="area" cols="50" rows="20" style="resize: none;"></textarea>
+
+    <script>
+        const textarea = document.getElementById('area');
+        let dumbtext = "Never gonna give you up";
+        let i=0;
+
+        textarea.addEventListener('keydown', (event) => {
+            event.preventDefault();
+            textarea.textContent += dumbtext[i];
+            i++
+            if(i == dumbtext.length) {
+                i=0
+                textarea.textContent = "";
+            };
+        });
+    </script>
+    
+</body>
+</html>
