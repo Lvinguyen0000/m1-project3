@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feet and Meters convertor</title>
+</head>
+<body>
+    <input id="input" placeholder="Enter numbers of sample"><br>
+    <textarea id="out" rows="30" cols="50" style="resize: none;"></textarea>
+
+    <script>
+        function feet_meter_conv(value, fromMeter){
+            if(fromMeter) return value*3.279;
+            else return value*0.305;
+        }
+
+        document.getElementById("input").oninput = function(){
+            let output =  document.getElementById("out");
+            output.textContent = "";
+            for (let i=1; i<=parseInt(this.value); i++){
+                output.textContent += i + " Feet -> " + feet_meter_conv(i, false) + " Meters  |  " 
+                                    + i + " Meters -> " + feet_meter_conv(i, true)+ " Feet\n";
+            }
+        }
+    </script>
+</body>
+</html>
