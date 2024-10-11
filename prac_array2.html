@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ray Ray Array 2</title>
+</head>
+<body>
+    <textarea id="b1out" rows="15" cols="50" style="resize: none;"></textarea>
+    <hr>
+    <textarea id="b2out" rows="5" cols="50" style="resize: none;"></textarea>
+    <hr>
+    <textarea id="b3out" rows="5" cols="50" style="resize: none;"></textarea>
+    <hr>
+    <textarea id="b4out" rows="5" cols="50" style="resize: none;"></textarea>
+    <hr>
+    <textarea id="b5out" rows="5" cols="50" style="resize: none;"></textarea>
+    <hr>
+    <textarea id="b6out" rows="5" cols="50" style="resize: none;"></textarea>
+    <hr>
+
+    <script>
+        function generateRandomArray(n, min = -100, max = 100) {
+            let array = [];
+
+            for (let i = 0; i < n; i++) {
+                let randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
+                array.push(randomNum);
+            }
+
+            return array;
+        }
+
+        function generateRandomMatrix(rows, rowEle, min = -100, max = 100){
+            let matrix = [];
+
+            for (let i = 0; i < rows; i++){
+                matrix.push(generateRandomArray(rowEle, min, max));
+            }
+
+            return matrix;
+        }
+
+        function displayMatrix(matrix){
+            let display = ""
+            for (let i  = 0; i < matrix.length; i++){
+                for (let j = 0; j < matrix[0].length; j++){
+                    display += matrix[i][j] + " "
+                }
+                display += "\n";
+            }
+            return display;
+        }
+
+        function op1(){
+            let matrix = generateRandomMatrix(5, 5, -100, 100)
+            let display = document.getElementById("b1out");
+            display.textContent += displayMatrix(matrix);
+
+            for (let i  = 0; i < matrix.length; i++){
+                display.textContent += "row " + i + "\n";
+                for (let j = 0; j < matrix[0].length; j++){
+                    display.textContent += matrix[i][j] + "\n"
+                }
+            }
+        }
+        op1();
+
+        function generateRandomChar(n){
+            let array = generateRandomArray(n, 45, 122); //ascii
+            strObj = [];
+            for(let i in array) strObj.push(String.fromCharCode(array[i]));
+            return strObj;
+        }
+
+        function op2(){
+            let strObj = generateRandomChar(5);
+            let display = document.getElementById("b2out");
+            display.textContent += strObj + "\n";
+            strObj = strObj.reverse();
+            for (let i of strObj){
+                display.textContent += i;
+            }
+        }
+        op2();
+
+        function isNumber(num) {
+            num = parseFloat(num);
+            return typeof num === 'number' && isFinite(num);
+        }
+
+        function op3(){
+            let strObj = generateRandomChar(5);
+            let display = document.getElementById("b3out");
+            display.textContent += strObj + "\n";
+            let count = 0;
+            for (let i of strObj) {
+                if (isNumber(i)) count++;
+            }
+            display.textContent += "There are " + count + " numbers in the array";
+        }
+        op3();
+
+        function op4(){
+            let strObj = generateRandomChar(5);
+            let display = document.getElementById("b4out");
+            display.textContent += strObj + "\n";
+            let count = 0;
+            for (let i of strObj) {
+                if (!isNumber(i)) count++;
+            }
+            display.textContent += "There are " + count + " chars in the array";
+        }
+        op4();
+
+        function op5(){
+            let strObj1 = generateRandomChar(5);
+            let strObj2 = generateRandomChar(strObj1.length);
+            //strObj1 = strObj2 = ["a", "b", "c", "d", "e"];
+            let display = document.getElementById("b5out");
+            display.textContent += strObj1 + "\n";
+            display.textContent += strObj2 + "\n";
+            for (let i in strObj1) {
+                if(strObj1[i] !== strObj2[i]){
+                    display.textContent += "Not identical arrays";
+                    return;
+                }
+            }
+            display.textContent += "Indentical arrays";
+        }
+        op5();
+
+        function op6(){
+            let strObj = generateRandomChar(5);
+            strObj.push("-");
+            let display = document.getElementById("b6out");
+            display.textContent += strObj + "\n";
+            let index = strObj.indexOf("-");
+            while (index != -1){
+                strObj[index] = "_";
+                index = strObj.indexOf("-");
+            }
+            display.textContent += strObj;
+        }
+        op6();
+
+    </script>
+</body>
+</html>
