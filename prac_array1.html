@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ray array 1</title>
+</head>
+<body>
+    <textarea id="b1out" rows="5" cols="50" style="resize: none;"></textarea>
+    <hr>
+    <textarea id="b2out" rows="5" cols="50" style="resize: none;"></textarea>
+    <hr>
+    <textarea id="b3out" rows="5" cols="50" style="resize: none;"></textarea>
+    <hr>
+    <textarea id="b4out" rows="5" cols="50" style="resize: none;"></textarea>
+    <hr>
+    <textarea id="b5out" rows="5" cols="50" style="resize: none;"></textarea>
+    <hr>
+    <input id="b6in" placeholder="Enter V to see if it's in the array.">
+    <button id="b6btn">Find</button><br>
+    <textarea id="b6out" rows="5" cols="50" style="resize: none;"></textarea>
+    <hr>
+    <input id="b7in" placeholder="Enter V to see if it's in the array.">
+    <button id="b7btn">Find</button><br>
+    <textarea id="b7out" rows="5" cols="50" style="resize: none;"></textarea>
+    <hr>
+    <textarea id="b8out" rows="5" cols="50" style="resize: none;"></textarea>
+    <hr>
+    <textarea id="b9out" rows="5" cols="100" style="resize: none;"></textarea>
+    <hr>
+
+    <script>
+        function generateRandomArray(n, min = -100, max = 100) {
+            let array = [];
+
+            for (let i = 0; i < n; i++) {
+                let randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
+                array.push(randomNum);
+            }
+
+            return array;
+        }
+
+        function op1(){
+            let array = generateRandomArray(10, -100, 100);
+            let count = 0;
+            let display = document.getElementById("b1out");
+            display.textContent += array;
+            display.textContent += "\nNumber greater a equal to 10:\n"
+            for(let i of array){
+                if (i >= 10) {
+                    display.textContent+= i + " ";
+                    count++;
+                }
+            } 
+            display.textContent += "\nThere are " + count + " numbers greater or equal to 10";
+        }
+        op1();
+
+        function op2(){
+            let array = generateRandomArray(10, -100, 100);
+            let count = 0;
+            let display = document.getElementById("b2out");
+            display.textContent += array;
+            let max = array[0];
+            let iti = 0
+            for(let i in array){
+                if (max < array[i]) {
+                    max = array[i];
+                    iti = i;
+                }
+            } 
+            display.textContent += "\nGreatest number is: " + max + " and it's index is: " + iti;
+        }
+        op2();
+
+        function op3(){
+            let array = generateRandomArray(10, -100, 100);
+            let display = document.getElementById("b3out");
+            display.textContent += array;
+            let max = array[0];
+            let avg = 0
+            for(let i in array){
+                avg += array[i]
+                if (max < array[i]) {
+                    max = array[i];
+                }
+            } 
+            avg/=array.length;
+            display.textContent += "\nGreatest number is: " + max + " and average is: " + avg;
+        }
+        op3();
+
+        function op4(){
+            let array = generateRandomArray(10, -100, 100);
+            let display = document.getElementById("b4out");
+            display.textContent += array + "\n" + array.reverse();
+        }
+        op4();
+
+        function op5(){
+            let array = generateRandomArray(10, -100, 100);
+            let count = 0;
+            let display = document.getElementById("b5out");
+            display.textContent += array;
+            display.textContent += "\nNumber of negative elements:\n"
+            for(let i of array){
+                if (i < 0) {
+                    count++;
+                }
+            } 
+            display.textContent += "\nThere are " + count + " negative numbers";
+        }
+        op5();
+        
+        function op6(){
+            let array = generateRandomArray(10, -100, 100);
+            let input = parseInt(document.getElementById("b6in").value);
+            let display = document.getElementById("b6out");
+            display.textContent = "";
+            display.textContent += array;
+            if (array.includes(input)) display.textContent += "\nV is in the array";
+            else display.textContent += "\nV is not in the array"
+        }
+        document.getElementById("b6btn").onclick =function(){op6()}
+
+        function op7(){
+            let array = generateRandomArray(10, -10, 10);
+            let input = parseInt(document.getElementById("b7in").value);
+            let display = document.getElementById("b7out");
+            display.textContent = "";
+            display.textContent += array;
+            if (array.indexOf(input) != -1) {
+                array.splice(array.indexOf(input), 1);
+                array.push(0);
+                display.textContent += "\n" + array;
+            }
+            else display.textContent += "\nV is not in the array"
+        }
+        document.getElementById("b7btn").onclick =function(){op7()}
+
+        //https://www.geeksforgeeks.org/selection-sort-algorithm-2/
+        function selectionSort(arr) {
+            let n = arr.length;
+            for (let i = 0; i < n - 1; i++) {
+            
+                // Assume the current position holds
+                // the minimum element
+                let min_idx = i;
+                
+                // Iterate through the unsorted portion
+                // to find the actual minimum
+                for (let j = i + 1; j < n; j++) {
+                    if (arr[j] < arr[min_idx]) {
+                    
+                        // Update min_idx if a smaller element is found
+                        min_idx = j;
+                    }
+                }
+                
+                // Move minimum element to its
+                // correct position
+                let temp = arr[i];
+                arr[i] = arr[min_idx];
+                arr[min_idx] = temp;
+            }
+            return arr;
+        }
+
+        function op8(){
+            let array = generateRandomArray(10, -100, 100);
+            let display = document.getElementById("b8out");
+            display.textContent += array;
+            display.textContent += "\n" + selectionSort(array).reverse();
+        }
+        op8();
+
+        function op9(){
+            let arrayA = generateRandomArray(10, -100, 100);
+            let arrayB = generateRandomArray(10, -100, 100);
+            let display = document.getElementById("b9out");
+            display.textContent += "Array a: " + arrayA;
+            display.textContent += "\nArray b: " + arrayB;
+            arrayC = arrayA.concat(arrayB);
+            display.textContent += "\nArray c: " + arrayC;
+        }
+        op9();
+    </script>
+</body>
+</html>
