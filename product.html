@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product list</title>
+    <style>
+        .main{
+            position: relative; left: 20%; border: 1px solid black; width: 40rem;
+        }
+        .none{
+            display: none;
+        }
+
+        .table{
+            width: 100%; border-collapse: collapse;
+        }
+
+        .cell {
+            text-align: center;
+        }
+
+        .cell *{
+            width: 20%; border: 1px solid black; text-align: center;
+        }
+
+        .edit .edit{
+            background-color: blue; color: white; width: 100%; height: 100%; cursor: pointer;
+        }
+
+        .row:not(.edit) .edit{
+            background-color: green; color: white; width: 100%; height: 100%; cursor: pointer;
+        } 
+
+        .edit .edit::before{
+            content: 'Edit';
+        }
+
+        .edit .edit:hover,
+        .row:not(.edit) .edit:hover,
+        .delete:hover{
+            filter: brightness(80%);
+        }
+
+        .row:not(.edit) .edit::before{
+            content: 'Save';
+        }
+
+        .row input{
+            width: 100%;
+        }
+
+        .edit input{
+            pointer-events: none;
+        }
+
+        .delete{
+            background-color: red; color: white; width: 100%; height: 100%; cursor: pointer;
+        }
+
+        .delete::before{
+            content: 'Delete'; 
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="main">
+        <h1>Product list</h1>
+        <table class="table" id="table">
+            <tr>
+                <th class="cell">Name</th>
+                <th class="cell">Amount</th>
+                <th class="cell">Price</th>
+                <th class="cell" colspan="2"></th>
+            </tr>
+            <tr>
+                <td id="noProduct" class="none cell" colspan="5">There are no product</td>
+            </tr>
+        </table>
+
+        <button id="add">Add product</button>
+        <div id="add_form" class="none">
+            <input id="new_product" placeholder="Enter producr name">
+            <input id="new_amount" placeholder="Enter product amount">
+            <input id="new_price" placeholder="Enter product price">
+            <button id="confirm">Add new product</button>
+        </div>
+    </div>
+
+    <script>
+        let products = [
+            {name: "Product 1", amount: 5, price: 100},
+            {name: "Product 2", amount: 3, price: 140},
+            {name: "Product 3", amount: 10, price: 400},
+            {name: "Product 4", amount: 7, price: 320}
+        ]
+
+        function createRow (product){
+            let row = document.createElement('tr');
+            row.classList.add("row");
+            row.classList.add("edit");
+            
+            let cell = document.createElement('td');
+            cell.classList.add("cell");
+            let input = document.createElement('input')
+            input.value = product.name;
+            cell.appendChild(input);
+            row.appendChild(cell);
+
+            cell = document.createElement('td');
+            cell.classList.add("cell");
+            input = document.createElement('input')
+            input.value = product.amount;
+            cell.appendChild(input);
+            row.appendChild(cell);
+
+            cell = document.createElement('td');
+            cell.classList.add("cell");
+            input = document.createElement('input')
+            input.value = product.price;
+            cell.appendChild(input);
+            row.appendChild(cell);
+
+            cell = document.createElement('td');
+            cell.classList.add("cell");
+            let button = document.createElement('button');
+            button.classList.add("edit");
+            button.onclick = function(){saveEdit(button);}
+            cell.appendChild(button);
+            row.appendChild(cell);
+
+            cell = document.createElement('td');
+            cell.classList.add("cell");
+            button = document.createElement('button');
+            button.classList.add("delete");
+            button.onclick = function(){deleteRow(button);}
+            cell.appendChild(button);
+            row.appendChild(cell);
+
+            document.getElementById("noProduct").classList.add("none");
+
+            return row;
+        }
+
+        function saveEdit(btnEle){
+            let table = document.getElementById("table")
+            let index = 0;
+            let parent = btnEle.parentElement.parentElement;
+            for (let i of table.children){
+                if (i === parent){
+                    break;
+                }
+                index++;
+            }
+
+            let curchild = parent.firstChild
+            products[index-1].name = curchild.firstChild.value;
+            curchild = curchild.nextSibling;
+            products[index-1].amount = curchild.firstChild.value;
+            curchild = curchild.nextSibling;
+            products[index-1].price = curchild.firstChild.value;
+
+            console.log(products);
+            parent.classList.toggle("edit");
+
+        }
+
+        function deleteRow(btnEle){
+            let table = document.getElementById("table")
+            let index = 0;
+            let parent = btnEle.parentElement.parentElement;
+            for (let i of table.children){
+                if (i === parent){
+                    break;
+                }
+                index++;
+            }
+
+            products.splice(index - 1, 1);
+            
+            table.removeChild(parent);
+
+            if (noProduct()) document.getElementById("noProduct").classList.remove("none");
+        }
+
+        function noProduct(){
+            if(!products.length) return true;
+            return false;
+        }
+
+        window.onload = function(){
+            let table = document.getElementById("table");
+
+            if(!noProduct()){
+                for (let i of products) {
+                    table.appendChild(createRow(i));
+                }
+            }
+            else document.getElementById("noProduct").classList.add("none");
+
+            document.getElementById("add").onclick = function(){
+                document.getElementById("add_form").classList.toggle("none");
+            }
+
+            document.getElementById("confirm").onclick = function(){
+                let name = document.getElementById("new_product");
+                let amount = document.getElementById("new_amount");
+                let price = document.getElementById("new_price");
+
+                if(name.value != "" && amount.value != "" && price.value != ""){
+                    product = {name: name.value, amount: amount.value, price: price.value};
+                    products.push(product);
+                    document.getElementById("table").appendChild(createRow(product));
+                }
+
+                document.getElementById("add_form").classList.toggle("none");
+                name.value = amount.value = price.value = "";
+            }
+        }
+    </script>
+</body>
+</html>
