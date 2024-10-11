@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Functioning</title>
+</head>
+<body>
+    <button id="b1btn" onclick="alertMessage();">Run alertMessage()</button>
+    <hr>
+    <input id="b2in"><input id="b2out">
+    <hr>
+    <input id="b3in1" value="0"><input id="b3in2" value="0"><br>
+    <button id="b3btn">Check</button>
+    <p id="b3out"></p>
+    <hr>
+    <button id="b4btn" onclick="testFunction();">Run testFunction()</button>
+    <hr>
+    <input id="b5in" placeholder="Enter the star name">
+    <button id="b5btn">Find the star</button><br>
+    <p id="b5out"></p>
+
+    <script>
+        function alertMessage(){alert("Hello");}
+
+        function increase1(num){return num+=1;}
+        document.getElementById("b2in").oninput = function(){
+            document.getElementById("b2out").value = increase1(parseInt(this.value));
+        }
+
+        function compare_num(num1, num2){
+            return (num1 > num2) ? "Số thứ nhất lớn hơn số thứ hai" : "Tổng của hai số: " + (num1+num2);
+        }
+
+        document.getElementById("b3btn").onclick = function(){
+            document.getElementById("b3out").textContent = compare_num(parseInt(document.getElementById("b3in1").value), parseInt(document.getElementById("b3in2").value))
+        }
+
+        function testFunction(){
+            function addNumbers() {
+                firstNum = 4;
+                secondNum = 8;
+                result = firstNum + secondNum;
+                return result;
+            }
+            result = 0;
+            alert(result);
+            result = addNumbers(); 
+            alert(result);
+        }
+
+        function findTheStar(str){
+            let stargr1 = ["Polaris","Aldebaran","Deneb","Vega","Altair","Dubhe","Regulus"]
+            let sratgr2 = ["Ursa Minor","Tarurus","Cygnus","Lyra","Aquila","Ursa Major","Leo"]
+            let index = stargr1.indexOf(str);
+            if (index != -1){
+                return stargr1[index] + " --- " + sratgr2[index];
+            }
+            return "No star was found";
+        }
+        document.getElementById("b5btn").onclick = function(){
+            document.getElementById("b5out").textContent = findTheStar(document.getElementById("b5in").value);
+        }
+    </script>
+</body>
+</html>
