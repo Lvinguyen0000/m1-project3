@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loop a lot 2.0</title>
+    <style>
+        .left {
+            text-align: left;
+        }
+        .right {
+            text-align: right;
+        }
+        #b3{
+            width: 5rem; border: 1px solid black;
+        }
+        input{
+            width: 20rem;
+        }
+        .cell{
+            width: 5px; height: 3px; border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <input id="b1in" placeholder="Enter number of Fibonacci number to display"><br>
+    <button id="b1btn">Run</button><br>
+    <input id="b1out"><br>
+    <hr>
+    <input id="b2in1" placeholder="Number"><input id="b2in2" placeholder="Power"><br>
+    <button id="b2btn">Run</button><br>
+    <input id="b2out"><br>
+    <hr>
+    <div id="b3"></div>
+    <hr>
+    <input id="b4in1" placeholder="Width"><input id="b4in2" placeholder="Height"><br>
+    <button id="b4btn">Run</button><br>
+    <div id="b4out"></div>
+    <hr>
+    <input id="b5in1" placeholder="Số tiền ban đầu"><input id="b5in2" placeholder="Số tháng cho vay"><input id="b5in3" placeholder="Lãi xuất hàng tháng"><br>
+    <button id="b5btn">Run</button><br>
+    <input id="b5out"><br>
+    <hr>
+    <div id="b6"></div>
+
+    <script>
+        function fibonacci(n) {
+            return n < 1 ? 0
+                    : n <= 2 ? 1
+                    : fibonacci(n - 1) + fibonacci(n - 2)
+        }
+
+        document.getElementById("b1btn").onclick = function(){
+            let n = document.getElementById("b1in").value;
+            for (let i = 1; i < n; i++){
+                document.getElementById("b1out").value += fibonacci(i) + " ";
+            }
+        }
+
+        document.getElementById("b2btn").onclick = function(){
+            let x = parseInt(document.getElementById("b2in1").value);
+            let y = parseInt(document.getElementById("b2in2").value);
+            document.getElementById("b2out").value = Math.pow(x, y);
+        }
+
+        function generate_tri_star(step, side, isUp){
+            let tri = document.createElement('div');
+            tri.classList.add(side);
+            if(isUp){
+                for (let i = 1; i<=step; i++){
+                    let row = document.createElement('p');
+                    for (let j = 1; j <= i; j++){
+                        row.textContent += "*";
+                    }
+                    tri.appendChild(row);
+                }
+            }
+            else {
+                for (let i = step; i>=1; i--){
+                    let row = document.createElement('p');
+                    for (let j = i; j >= 1; j--){
+                        row.textContent += "*";
+                    }
+                    tri.appendChild(row);
+                }
+            }
+            return tri;
+        }
+
+        let b3div = document.getElementById("b3");
+        let isUp = true
+        b3div.appendChild(generate_tri_star(5, "left", isUp));
+        b3div.appendChild(generate_tri_star(5, "left", !isUp));
+        b3div.appendChild(generate_tri_star(5, "right", isUp));
+        b3div.appendChild(generate_tri_star(5, "right", !isUp));
+
+        function draw_rect_star (width, height){
+            let rect = document.createElement('table');
+            let widthSide = document.createElement('tr');
+            for (let i = 0; i < width; i++){
+                let cell = document.createElement("td");
+                cell.textContent = "*";
+                widthSide.appendChild(cell);
+            }
+
+            let heightRow = document.createElement('tr');
+            let a_cell = document.createElement("td");
+            a_cell.textContent += "*";
+            heightRow.appendChild(a_cell.cloneNode(true));
+            for (let i = 1; i < width-1; i++){
+                let cell = document.createElement("td");
+                heightRow.appendChild(cell);
+            }
+            heightRow.appendChild(a_cell.cloneNode(true));
+
+            rect.appendChild(widthSide.cloneNode(true));
+            for (let i = 1; i < height - 1; i++){
+                rect.appendChild(heightRow.cloneNode(true));
+            }
+            rect.appendChild(widthSide.cloneNode(true));
+            return rect;
+        }
+
+        document.getElementById("b4btn").onclick = function(){
+            let width = parseInt(document.getElementById("b4in1").value);
+            let height = parseInt(document.getElementById("b4in2").value);
+            document.getElementById("b4out").appendChild(draw_rect_star(width, height));
+        }
+
+        document.getElementById("b5btn").onclick = function(){
+            let input1 = parseInt(document.getElementById("b5in1").value);
+            let input2 = parseInt(document.getElementById("b5in2").value);
+            let input3 = parseInt(document.getElementById("b5in3").value);
+            let interestRate = ((input3 / 100) + 1);
+            let res = input1 * Math.pow(interestRate, input2).toFixed(4);        
+            document.getElementById("b5out").value = "Số tiền phải trả là : " + res + " VND";
+        }
+
+        function drawHeart(width, height) {
+            const table = document.createElement("table");
+
+            // Calculate the heart's base width
+            const baseWidth = width / 2;
+
+            // Create the heart's outline
+            for (let i = 0; i < height; i++) {
+                const row = document.createElement("tr");
+                for (let j = 0; j < width; j++) {
+                    const cell = document.createElement("td");
+
+                    // Calculate the distance from the center
+                    const distanceFromCenter = Math.abs(j - width / 2);
+
+                    // Determine if the current pixel is within the heart's shape
+                    if (i <= height / 2) {
+                        if (distanceFromCenter <= baseWidth / 2) {
+                        cell.textContent = "*";
+                        }
+                    } else {
+                        if (distanceFromCenter <= baseWidth / 4) {
+                        cell.textContent = "*";
+                        }
+                    }
+
+                    row.appendChild(cell);
+                }
+                table.appendChild(row);
+            }
+            return table;
+        }
+
+        document.getElementById("b6").appendChild(drawHeart(30, 20));
+    </script>
+</body>
+</html>
