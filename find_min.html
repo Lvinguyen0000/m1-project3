@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find min in array</title>
+</head>
+<body>
+    <textarea id="out" rows="10" cols="40" style="resize: none;"></textarea>
+
+    <script>
+        function generateRandomArray(n, min = -100, max = 100) {
+            let array = [];
+
+            for (let i = 0; i < n; i++) {
+                let randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
+                array.push(randomNum);
+            }
+
+            return array;
+        }
+
+        function findMin(array){
+            let min = array[0];
+            for (let i of array){
+                if (min > i) min = i
+            }
+            return min;
+        }
+
+        let display = document.getElementById("out");
+        let arr1 = generateRandomArray(10);
+        let arr2 = generateRandomArray(4);
+        let arr3 = generateRandomArray(5);
+        let arr4 = generateRandomArray(10);
+
+        display.textContent += arr1 + "\nMin: " + findMin(arr1) + "\n";
+        display.textContent += arr2 + "\nMin: " + findMin(arr2) + "\n";
+        display.textContent += arr3 + "\nMin: " + findMin(arr3) + "\n";
+        display.textContent += arr4 + "\nMin: " + findMin(arr4) + "\n";
+    </script>
+</body>
+</html>
